@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2bd691b-50b6-4ff9-8e5f-2629b1dc795f" name="Default" comment="" />
-    <list id="f2f031bf-4586-435d-98f1-e0bf38818511" name="ignoreFileLists" comment="ignoreFile">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sun/controller/IgnoreController.java" />
-    </list>
+    <list id="f2f031bf-4586-435d-98f1-e0bf38818511" name="ignoreFileLists" comment="ignoreFile" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -447,7 +445,7 @@
       <updated>1598274577323</updated>
       <workItem from="1598274582334" duration="5719000" />
       <workItem from="1598769194897" duration="1136000" />
-      <workItem from="1605531815356" duration="2159000" />
+      <workItem from="1605531815356" duration="2378000" />
     </task>
     <task id="LOCAL-00001" summary="exclude ignore files">
       <created>1605533013703</created>
@@ -460,7 +458,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9357000" />
+    <option name="totallyTimeSpent" value="9576000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
