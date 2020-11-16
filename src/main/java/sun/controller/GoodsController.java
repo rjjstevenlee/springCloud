@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController // 重要，如果用Controller会404
-@RequestMapping(value = "service")
-public class HelloController {
+@RequestMapping(value = "/order")
+public class GoodsController {
 
-    @RequestMapping(value = "hello")
+    @RequestMapping(value = "/hello")
     public void login(HttpServletRequest request, HttpServletResponse response,@RequestBody ServiceInfo serviceInfo) {
         RestfulResult restfulResult = new RestfulResult();
         try {
@@ -24,12 +24,12 @@ public class HelloController {
         }
         CommUtils.printDataJason(response, restfulResult);
     }
-    @RequestMapping(value = "rest")
+    @RequestMapping(value = "/rest")
     public String rest(@RequestBody ServiceInfo serviceInfo) {
 
         return "Service1:Welcome " + serviceInfo.getName() + " !";
     }
-    @RequestMapping(value = "rest2")
+    @RequestMapping(value = "/rest2")
     public String rest2(@RequestBody ServiceInfo serviceInfo) {
 
         return "Service1:Welcome " + serviceInfo.getName() + " !";
