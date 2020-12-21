@@ -66,3 +66,29 @@ docker logs -f springCloudService
 
 https://blog.csdn.net/boling_cavalry/article/details/78943061
 
+
+
+https://www.jianshu.com/p/a9bcd9cbefc8
+
+Jenkins 持续集成 Pipeline 简易入门教程
+
+为什么选择 Jeknkins Pipeline ？
+团队目前使用 Jekinks 进行项目 sdk 库的发布，但是如果要修改 Jenkins 项目配置完成对工程编译的配置的时候，学习曲线瞬间变得陡峭。相关同学可能配置过再弄一次又得复习了。再者我们在新建新的工程的时候需要复制相关配置信息，配置相关脚本也是一个相对麻烦的工作。 这时Pipeline入了咱们的法眼，之前已经有了配置 GitLabCI的经验。所以多次讨论考虑后决定使用 Pipeline 进行对原来 Jenkins项目的管理进行升级。
+
+ 两种配置风格
+ 旧的Jenkins项目
+
+ 1.创建一个Freestyle
+
+ 2.配置它
+
+如果需要多分支管理我们需要装下如下插件
+Multi-Branch+Project+Plugin
+
+Pipleline 项目创建与配置
+我们点击 jenkins 里面的 new item
+
+配置现有项目支持 Pipeline
+添加代码来源，点击Git添加
+
+修改代码来源配置
