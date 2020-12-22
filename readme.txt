@@ -126,6 +126,8 @@ git config --global alias.unstage 'reset HEAD --'
 git unstage fileA
 git reset HEAD --fileA
 
+git config --global alias.last 'log -1 HEAD'
+
 
 
 
