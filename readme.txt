@@ -129,6 +129,15 @@ git reset HEAD --fileA
 git config --global alias.last 'log -1 HEAD'
 
 
+外部命令而非git系统命令：加！号
+git config --global alias.visual '!gitk'
+
+create branch
+
+git branch name
+
+git checkout name
+
 
 
 
