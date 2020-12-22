@@ -97,8 +97,53 @@ mvn package -Dmaven.test.skip=true
 修改代码来源配置
 
 taskkill /f /t /im java.exe
+
+
 git command
+
+git push origin master
 
 git add *
 git add .
 git add --all
+
+git reset HEAD fillname
+
+git checkout -- file
+
+git commit --amend
+
+
+alias:
+
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+
+git config --global alias.unstage 'reset HEAD --'
+
+git unstage fileA
+git reset HEAD --fileA
+
+
+
+
+
+
+标签创建：
+
+git tag
+
+git tag -l "v1.2*"
+
+git tag -a v1.0 -m "my first version"
+
+git show v1.0
+
+git log --pretty=oneline
+
+git tag -a v1.2 9fceb02
+
+git show v1.2
+
