@@ -66,8 +66,6 @@ docker logs -f springCloudService
 
 https://blog.csdn.net/boling_cavalry/article/details/78943061
 
-
-
 https://www.jianshu.com/p/a9bcd9cbefc8
 
 Jenkins 持续集成 Pipeline 简易入门教程
@@ -91,4 +89,16 @@ Pipleline 项目创建与配置
 配置现有项目支持 Pipeline
 添加代码来源，点击Git添加
 
+-DskipTests，不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。
+-Dmaven.test.skip=true，不执行测试用例，也不编译测试用例类。
+一 使用maven.test.skip，不但跳过单元测试的运行，也跳过测试代码的编译。
+mvn package -Dmaven.test.skip=true
+
 修改代码来源配置
+
+taskkill /f /t /im java.exe
+git command
+
+git add *
+git add .
+git add --all

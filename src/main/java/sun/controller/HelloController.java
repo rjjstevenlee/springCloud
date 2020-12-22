@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController // 重要，如果用Controller会404
-@RequestMapping(value = "service")
+@RequestMapping(value = "hello")
 public class HelloController {
 
     @RequestMapping(value = "hello")
