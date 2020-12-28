@@ -1,1 +1,0 @@
-java -jar springCloudService-1.0-SNAPSHOT.jar
