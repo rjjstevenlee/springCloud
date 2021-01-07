@@ -1,0 +1,216 @@
+xargs命令是给其他命令传递参数的一个过滤器，也是组合多个命令的一个工具。它擅长将标准输入数据转换成命令行参数，xargs能够处理管道或者stdin并将其转换成特定命令的命令参数。xargs也可以将单行或多行文本输入转换为其他格式，例如多行变单行，单行变多行。xargs的默认命令是echo，空格是默认定界符。这意味着通过管道传递给xargs的输入将会包含换行和空白，不过通过xargs的处理，换行和空白将被空格取代。xargs是构建单行命令的重要组件之一。
+
+xargs命令用法
+xargs用作替换工具，读取输入数据重新格式化后输出。
+
+定义一个测试文件，内有多行文本数据：
+
+cat test.txt
+
+a b c d e f g
+h i j k l m n
+o p q
+r s t
+u v w x y z
+多行输入单行输出：
+
+cat test.txt | xargs
+
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+-n选项多行输出：
+
+cat test.txt | xargs -n3
+
+a b c
+d e f
+g h i
+j k l
+m n o
+p q r
+s t u
+v w x
+y z
+-d选项可以自定义一个定界符：
+
+echo "nameXnameXnameXname" | xargs -dX
+
+name name name name
+结合-n选项使用：
+
+echo "nameXnameXnameXname" | xargs -dX -n2
+
+name name
+name name
+读取stdin，将格式化后的参数传递给命令
+
+假设一个命令为 sk.sh 和一个保存参数的文件arg.txt：
+
+#!/bin/bash
+#sk.sh命令内容，打印出所有参数。
+
+echo $*
+arg.txt文件内容：
+
+cat arg.txt
+
+aaa
+bbb
+ccc
+xargs的一个选项-I，使用-I指定一个替换字符串{}，这个字符串在xargs扩展时会被替换掉，当-I与xargs结合使用，每一个参数命令都会被执行一次：
+
+cat arg.txt | xargs -I {} ./sk.sh -p {} -l
+
+-p aaa -l
+-p bbb -l
+-p ccc -l
+复制所有图片文件到 /data/images 目录下：
+
+ls *.jpg | xargs -n1 -I cp {} /data/images
+xargs结合find使用
+
+用rm 删除太多的文件时候，可能得到一个错误信息：/bin/rm Argument list too long. 用xargs去避免这个问题：
+
+find . -type f -name "*.log" -print0 | xargs -0 rm -f
+xargs -0将\0作为定界符。
+
+统计一个源代码目录中所有php文件的行数：
+
+find . -type f -name "*.php" -print0 | xargs -0 wc -l
+查找所有的jpg 文件，并且压缩它们：
+
+find . -type f -name "*.jpg" -print | xargs tar -czvf images.tar.gz
+xargs其他应用
+
+假如你有一个文件包含了很多你希望下载的URL，你能够使用xargs下载所有链接：
+
+cat url-list.txt | xargs wget -c
+子Shell（Subshells）
+运行一个shell脚本时会启动另一个命令解释器.，就好像你的命令是在命令行提示下被解释的一样，类似于批处理文件里的一系列命令。每个shell脚本有效地运行在父shell(parent shell)的一个子进程里。这个父shell是指在一个控制终端或在一个xterm窗口中给你命令指示符的进程。
+
+cmd1 | ( cmd2; cmd3; cmd4 ) | cmd5
+如果cmd2 是cd /，那么就会改变子Shell的工作目录，这种改变只是局限于子shell内部，cmd5则完全不知道工作目录发生的变化。子shell是嵌在圆括号()内部的命令序列，子Shell内部定义的变量为局部变量。
+
+子shell可用于为一组命令设定临时的环境变量：
+
+COMMAND1
+COMMAND2
+COMMAND3
+(
+  IFS=:
+  PATH=/bin
+  unset TERMINFO
+  set -C
+  shift 5
+  COMMAND4
+  COMMAND5
+  exit 3 # 只是从子shell退出。
+)
+# 父shell不受影响，变量值没有更改。
+COMMAND6
+COMMAND7
+
+xargs
+xargs命令应该紧跟在管道操作符后面，以标准输入作为主要的源数据流。
+cat test.txt | xargs -n 3 　　　　 　　　　          #将单行划分为多行，每行3个字
+echo "splitxsplitxsplitxsplitx" | xargs -d x 　　   #使用-d将x作为输入定界符(默认是使用IFS作为输入定界符的)
+echo "splitxsplitxsplitxsplitx" | xargs -d x -n 2   #将以上结果划分成多行，每行2个字
+cat args.txt | xargs -n 2 ./test.sh 　　　　　　   #将参数写在args.txt中，每次可以修改-n的数字选择传多少个参数给脚本test.sh
+cat args.txt | xargs -I {} ./test.sh -p {} -l 　　 #从args.txt读取参数，脚本test.sh每次需要传入3个参数，中间的参数为不固定的
+cat files.txt | xargs -I {} cat {} 　　　　　　　  #将接收到的参数打印出来
+cat files.txt | ( while read arg; do $arg; done )  #同上
+
+redis-cli KEYS "pattern" | xargs redis-cli DEL   #通过模糊匹配pattern正则，删除对应的redis键值对
+
+redis-cli -a password KEYS "godel*" | xargs redis-cli -a password DEL  #同上， -a参数指定密码
+
+
+注意：将命令输出作为xargs命令的输入的时候，最好为输出的各行添加一个0值字节终止符。xargs默认是使用空格最为定界符分割参数的。这样的话如果传入的单行输出中包含空格，那么会被以空格分割成多个参数。例如"This is test"传入xargs时，会被默认分割成3个参数。如果用0值字节终止符，那么\0就被作为定界符，此时，包括空格的单行就能正确地解析为单个参数了。所以在用的时候先加-0参数再加其他参数：xargs -0 ...
+
+
+grep
+grep match_pattern filename     #在文件中搜索一个单词 match_pattern多为通配符或正则表达式
+grep "match_pattern" filename   #同上
+grep -E "[a-z]+" file 　　　　　　 #要匹配正则则表达式需要加参数-E
+egrep "[a-z]+" file 　　　　　　    #可以匹配正则表达式的搜索
+grep -c "text" filename 　　　　  #统计文本中包含匹配字符串的行数，参数-c只是统计匹配行的数量，并不是匹配的次数
+grep word filename --color=auto #在输出行中重点标记出匹配到的单词
+grep -f pattern_file source_filename 　　　　 #使用参数-f也是用于指定多个样式
+grep "main()" /data -r --include *.{c,cpp}     #只在/data目录中递归搜索所有的.c和.cpp文件
+grep "main()" /data -r --exclude "README"    #在搜索中排除所有的README文件，如果要排序目录则使用 --exclude-dir，如果要从文件中读取所需排除的列表则使用--exclude-from FILE
+grep -v match_pattern filename 　　　　　　 #打印除了包含match_patternde的昂之外的所有行 参数-v将匹配到的结果进行反转
+grep "match_pattern" file1 file2 file3... 　　   #对多个文件进行搜索
+grep linux -n test.txt test2.txt 　　　　　　   #参数-n是匹配结果行与其所属文件名一并打印出来
+echo gnu is not unix | grep -b -o "not" 　　   #打印样式匹配所位于的字符或字节偏移，偏移量起始值为0，即该行第一个字符。-b和-o参数是配合使用的
+grep -l linux test1.txt test2.txt 　　　　　　  #搜索过个文件并找出匹配文本位于哪个一个文件中，相反的选项有-L，它会返回一个不匹配的文件列表
+grep "match_pattern" . -R -n 　　　　　　 　 #从当前目录开始，在多级目录中对文本进行递归搜索
+echo hello world | grep -i "HELLO" 　　　　   #输出hello ，参数-i表示在匹配时不区分大小写
+echo this is a line. | grep -o -E "[a-z]+\." 　  #结果：line. 参数-o表示只输出文件中匹配到的文本部分
+echo this is a line of text | grep -e "this" -e "line" -o #使用参数-e来指定匹配多个样式
+
+seq 10 | grep 5 -A 3     #参数-A打印5以及之后3行，也就是5,6,7,8
+seq 10 | grep 5 -B 3     #参数-B打印5以及之前3行，也就是2,3,4,5
+seq 10 | grep 5 -C 3     #参数-C打印5以及之前和之后3行，也就是2,3,4,5,6,7,8
+
+look word filepath 　　 #列出文件中以特定单词起头的所有单词，如果没有给出文件参数，look命令会使用默认词典/usr/share/dict/words
+grep "^word" filepath  #同上
+-------------------------------------------------
+
+脚本例子1：测试文件是否包含特定的文本内容
+#!/bin/bash
+#filename:test.sh
+#执行：test.sh student test_data.txt
+if [ $# -ne 2 ];
+then
+echo "$0 match_text filename"
+fi
+match_text=$1
+filename=$2
+grep -q $match_text $filename 　　 #参数-q使grep进入静默模式，只返回0或非0值，不会打印其他输出
+if [ $? -eq 0 ]
+then
+echo "The text exists in the file"
+else
+echo "The text not exists in the file"
+fi
+
+
+脚本例子2：统计特定文件中的词频
+#!/bin/bash
+#文件名：test.sh
+#执行：test.sh words.txt
+if [ $# -ne 1 ];
+then
+echo "Usage:$0 filename";
+exit -1
+fi
+filename=$1
+egrep -o "\b[[:alpha:]]+\b" $filename | \
+awk '{ count[$0]++}
+END{ printf{"%-14s%s\n","Word","Count"};
+for(ind in count)
+{ printf("%-14s%d\n",ind,count[ind]); }
+}'
+
+
+脚本例子3：拼写检查与词典操作
+法一：
+#!/bin/bash
+#filename:test.sh
+word=$1
+grep '^$1$' /usr/share/dict/brithish-english -q      #查找传入的参数是否在字典/usr/share/dict/brithish-english中。 ^表示正则的单词开头，$表示单词结尾，-q禁止产生任何输出
+if [ $? -eq 0 ] ;then
+echo $word is a dictionary word;
+else
+echo $word is not a dictionary word;
+fi
+
+法二：
+#!/bin/bash
+#filename:test.sh
+word=$1
+output=`echo \"$word\" | aspell list`     #当给定的输入不是一个词典单词时，aspell list命令将产生输出文本，反之则不产生任何输出。-z用于确认
+if [ -z $output ] ;then
+echo $word is a dictionary word;
+else
+echo $word is not a dictionary word;
+fi

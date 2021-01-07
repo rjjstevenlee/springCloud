@@ -9,6 +9,5 @@ public class DrawNow extends JApplet {
     public void init(){
         Container cp = getContentPane();
 
-
     }
 }
