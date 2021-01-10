@@ -477,7 +477,6 @@ grep与正规表达式
 
 
 
-
 限定连续 RE 字符范围 {}
 我们可以利用 . 与 RE 字符及 * 来配置 0 个到无限多个重复字节， 那如果我想要限制一个范围区间内的重复字节数呢？
 
@@ -493,7 +492,6 @@ grep与正规表达式
 18:google is the best tools for search ke
 19:goooooogle yes!
 复制代码
-
 
 
 假设我们要找出 g 后面接 2 到 5 个 o ，然后再接一个 g 的字串，他会是这样：
@@ -542,10 +540,7 @@ northeast       NE      AM Main Jr.           5.1     .94     3       13
 central         CT      Ann Stephens          5.7     .94     5       13
 复制代码
 
-
-
 搜索所有包含0个或1个小数点字符的行。
-
 
 复制代码
 
@@ -558,10 +553,7 @@ southwest       SW      Lewis Dalsass         2.7     .8      2       18
 eastern         EA       TB Savage             4.4     .84     5       20
 复制代码
 
-
-
 搜索一个或者多个连续的no的行。
-
 
 # egrep '(no)+' testfile
 # grep -E '(no)+' testfile
@@ -569,7 +561,6 @@ eastern         EA       TB Savage             4.4     .84     5       20
 northwest       NW      Charles Main        3.0     .98     3       34
 northeast       NE       AM Main Jr.        5.1     .94     3       13
 north           NO      Margot Weber        4.5     .89     5       9
-
 
 不使用正则表达式
 
