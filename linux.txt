@@ -356,8 +356,6 @@ grep与正规表达式
 [root@www ~]# grep -n '^the' regular_express.txt
 12:the symbol '*' is represented as start.
 
-
-
 此时，就只剩下第 12 行，因为只有第 12 行的行首是 the 开头啊～此外， 如果我想要开头是小写字节的那一行就列出呢？可以这样：
 
 复制代码
@@ -372,15 +370,12 @@ grep与正规表达式
 20:go! go! Let's go.
 复制代码
 
-
-
 如果我不想要开头是英文字母，则可以是这样：
 
 [root@www ~]# grep -n '^[^a-zA-Z]' regular_express.txt
 1:"Open Source" is a good mechanism to develop programs.
 21:# I am VBird
 ^ 符号，在字符类符号(括号[])之内与之外是不同的！ 在 [] 内代表『反向选择』，在 [] 之外则代表定位在行首的意义！
-
 
 
 那如果我想要找出来，行尾结束为小数点 (.) 的那一行：
@@ -406,14 +401,11 @@ grep与正规表达式
 特别注意到，因为小数点具有其他意义(底下会介绍)，所以必须要使用转义字符(\)来加以解除其特殊意义！
 
 
-
 找出空白行：
 
 [root@www ~]# grep -n '^$' regular_express.txt
 22:
 因为只有行首跟行尾 (^$)，所以，这样就可以找出空白行啦！
-
-
 
 任意一个字节 . 与重复字节 *
 这两个符号在正则表达式的意义如下：
@@ -427,7 +419,6 @@ grep与正规表达式
 9:Oh! The soup taste good.
 16:The world <Happy> is the same with "glad".
 因为强调 g 与 d 之间一定要存在两个字节，因此，第 13 行的 god 与第 14 行的 gd 就不会被列出来啦！
-
 
 
 如果我想要列出有 oo, ooo, oooo 等等的数据， 也就是说，至少要有两个(含) o 以上，该如何是好？
@@ -448,7 +439,6 @@ grep与正规表达式
 复制代码
 
 
-
 如果我想要字串开头与结尾都是 g，但是两个 g 之间仅能存在至少一个 o ，亦即是 gog, goog, gooog.... 等等，那该如何？
 
 [root@www ~]# grep -n 'goo*g' regular_express.txt
@@ -466,7 +456,6 @@ grep与正规表达式
 20:go! go! Let's go.
 
 因为是代表 g 开头与 g 结尾，中间任意字节均可接受，所以，第 1, 14, 20 行是可接受的喔！ 这个 .* 的 RE 表示任意字符是很常见的.
-
 
 
 如果我想要找出『任意数字』的行？因为仅有数字，所以就成为：
@@ -493,7 +482,6 @@ grep与正规表达式
 19:goooooogle yes!
 复制代码
 
-
 假设我们要找出 g 后面接 2 到 5 个 o ，然后再接一个 g 的字串，他会是这样：
 
 [root@www ~]# grep -n 'go\{2,5\}g' regular_express.txt
@@ -510,8 +498,6 @@ grep与正规表达式
 扩展grep(grep -E 或者 egrep)：
 使用扩展grep的主要好处是增加了额外的正则表达式元字符集。
 
-
-
 打印所有包含NW或EA的行。如果不是使用egrep，而是grep，将不会有结果查出。
 
     # egrep 'NW|EA' testfile
@@ -524,7 +510,6 @@ grep与正规表达式
 #grep 'NW\|EA' testfile
 northwest       NW      Charles Main        3.0     .98     3       34
 eastern         EA      TB Savage           4.4     .84     5       20
-
 
 搜索所有包含一个或多个3的行。
 

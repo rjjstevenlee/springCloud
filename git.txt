@@ -1,0 +1,56 @@
+git remote set-url  origin https://xxx@github.org/hello/etl.git
+
+
+git command
+
+git push origin master
+
+git add *
+git add .
+git add --all
+
+git reset HEAD fillname
+
+git checkout -- file
+
+git commit --amend
+
+alias:
+
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+
+git config --global alias.unstage 'reset HEAD --'
+
+git unstage fileA
+git reset HEAD --fileA
+
+git config --global alias.last 'log -1 HEAD'
+
+外部命令而非git系统命令：加！号
+
+git config --global alias.visual '!gitk'
+
+create branch
+
+git branch name
+
+git checkout name
+
+标签创建：
+
+git tag
+
+git tag -l "v1.2*"
+
+git tag -a v1.0 -m "my first version"
+
+git show v1.0
+
+git log --pretty=oneline
+
+git tag -a v1.2 9fceb02
+
+git show v1.2
