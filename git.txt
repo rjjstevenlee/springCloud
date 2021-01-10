@@ -78,3 +78,10 @@ git branch -v
 //查看哪些并入当前分支
 git branch --merged
 git branch --no-merged
+
+//查看各个分支当前指向的对象
+git log --oneline --decorate
+
+
+-------------------
+
