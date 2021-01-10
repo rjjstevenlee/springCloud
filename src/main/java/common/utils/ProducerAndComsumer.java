@@ -8,6 +8,10 @@ public class ProducerAndComsumer {
         Consumer consumer = new Consumer(holdInt);
         producer.start();
         consumer.start();
+
+        Integer num = 100;
+        String numToStr = String.valueOf(num);
+        System.out.println(numToStr);
     }
 }
 class HoldInt{
