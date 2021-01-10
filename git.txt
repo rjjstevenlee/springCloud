@@ -1,8 +1,5 @@
 git remote set-url  origin https://xxx@github.org/hello/etl.git
 
-
-git command
-
 git push origin master
 
 git add *
@@ -25,7 +22,7 @@ git config --global alias.st status
 git config --global alias.unstage 'reset HEAD --'
 
 git unstage fileA
-git reset HEAD --fileA
+git reset HEAD --fileA  //移出暂存区
 
 git config --global alias.last 'log -1 HEAD'
 
@@ -37,7 +34,7 @@ create branch
 
 git branch name
 
-git checkout name
+git checkout name  //撤销对文件的修改
 
 标签创建：
 
