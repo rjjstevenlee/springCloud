@@ -42,6 +42,8 @@ git tag
 
 git tag -l "v1.2*"
 
+给标签添加注释：
+
 git tag -a v1.0 -m "my first version"
 
 git show v1.0
@@ -51,3 +53,28 @@ git log --pretty=oneline
 git tag -a v1.2 9fceb02
 
 git show v1.2
+
+git log --pretty=oneline
+
+9cd74c70491a64b4bfdf152fae4bf3529c012ed7 change
+98260b1ae8502944f2509d689d60913b86d267c3 change
+60d46aca7053b6b73fa90f1feb0562a33f7995df add
+5ace5c401cb5a1bcee632e6120779b04cd958c48 add
+975dddd18dc8bbfcfd48f06beaa187cb6d8b935b www
+f49b47aba61bedcd33fd1bf61e4699bed07d55fc add files
+
+
+//补加标签：提交 9fceb02 标记 tag
+git tag -a v1.2 f49b47
+
+//推送标签
+git push origin v1.2
+推送所以标签
+git push origin --tags
+
+查看最新提交：
+git branch -v
+
+//查看哪些并入当前分支
+git branch --merged
+git branch --no-merged
