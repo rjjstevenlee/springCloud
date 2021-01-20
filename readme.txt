@@ -141,3 +141,6 @@ mv order.war ROOT.war
 # 启动Tomcat
 cd $TOMCAT_APP_PATH/
 sh bin/startup.sh
+
+
+https://blog.csdn.net/qq_29519041/article/details/85238270
